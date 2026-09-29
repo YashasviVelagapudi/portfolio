@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="Portfolio of Velagapudi Yashasvi, Computer Science undergraduate specializing in AI, Machine Learning, and NLP.">
+  <title>Velagapudi Yashasvi | Portfolio</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Manrope:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* ---------- CSS3: tokens, mobile-first base ---------- */
+    :root {
+      --ink: #16213a;
+      --paper: #f5f6f8;
+      --card: #ffffff;
+      --muted: #4b5566;
+      --accent: #0b6b63;
+      --accent-ink: #ffffff;
+      --mark: #f0b43c;
+      --line: #d9dde5;
+      --bs-body-bg: var(--paper);
+      --bs-body-color: var(--ink);
+    }
+
+    :root[data-bs-theme="dark"] {
+      --ink: #e8ecf4;
+      --paper: #0f1524;
+      --card: #182038;
+      --muted: #a6b0c5;
+      --accent: #4fd1c5;
+      --accent-ink: #0f1524;
+      --line: #2b3654;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 72px
+    }
+
+    body {
+      font-family: 'Manrope', system-ui, sans-serif;
+      line-height: 1.65;
+      background: var(--paper);
+      color: var(--ink)
+    }
+
+    h1,
+    h2,
+    h3,
+    .navbar-brand {
+      font-family: 'Bricolage Grotesque', Georgia, serif;
+      letter-spacing: -.02em
+    }
+
+    h1 {
+      font-weight: 800;
+      font-size: clamp(2.3rem, 8vw, 4.4rem);
+      line-height: 1.05
+    }
+
+    h2 {
+      font-weight: 800;
+      font-size: clamp(1.7rem, 5vw, 2.4rem);
+      margin-bottom: 1.5rem
+    }
+
+    h2::after {
+      content: "";
+      display: block;
+      width: 56px;
+      height: 5px;
+      background: var(--mark);
+      margin-top: .6rem;
+      border-radius: 3px
+    }
+
+    p,
+    li {
+      max-width: 68ch
+    }
+
+    .text-muted-c {
+      color: var(--muted)
+    }
+
+    section {
+      padding: 3.5rem 0
+    }
+
+    a {
+      color: var(--accent)
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--mark);
+      outline-offset: 2px
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 0;
+      background: var(--mark);
+      color: #000;
+      padding: .5rem 1rem;
+      z-index: 2000
+    }
+
+    .skip-link:focus {
+      left: 0
+    }
+
+    .navbar {
+      background: var(--card);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .navbar .nav-link {
+      color: var(--ink);
+      font-weight: 500
+    }
+
+    .navbar .nav-link.active,
+    .navbar .nav-link:hover {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 6px
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border: 0;
+      font-weight: 700
+    }
+
+    .btn-accent:hover {
+      filter: brightness(1.1);
+      color: var(--accent-ink)
+    }
+
+    .btn-outline-c {
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      font-weight: 700
+    }
+
+    .btn-outline-c:hover {
+      background: var(--accent);
+      color: var(--accent-ink)
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--ink)
+    }
+
+    /* Hero: Grid layout, tablet+ two columns */
+    .hero {
+      display: grid;
+      gap: 2rem;
+      align-items: center;
+      padding: 3rem 0
+    }
+
+    .avatar {
+      width: min(260px, 70%);
+      aspect-ratio: 1;
+      border-radius: 50% 50% 50% 8%;
+      background: var(--accent);
+      color: var(--accent-ink);
+      display: grid;
+      place-items: center;
+      font: 800 4.5rem 'Bricolage Grotesque', serif;
+      box-shadow: 12px 12px 0 var(--mark)
+    }
+
+    .tag {
+      display: inline-block;
+      padding: .2rem .65rem;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      font-size: .8rem;
+      margin: 0 .25rem .35rem 0;
+      color: var(--muted);
+      background: rgba(0, 0, 0, .02)
+    }
+
+    [data-bs-theme="dark"] .tag {
+      background: rgba(255, 255, 255, .04)
+    }
+
+    /* Flexbox filter bar */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-bottom: 1.5rem
+    }
+
+    .filters .btn[aria-pressed="true"] {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: var(--accent)
+    }
+
+    .project {
+      transition: transform .2s, box-shadow .2s
+    }
+
+    .project:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .08)
+    }
+
+    .progress {
+      background: var(--line);
+      height: .75rem
+    }
+
+    .progress-bar {
+      background: var(--accent)
+    }
+
+    .table {
+      --bs-table-bg: var(--card);
+      --bs-table-color: var(--ink);
+      --bs-table-border-color: var(--line)
+    }
+
+    .form-control,
+    .form-select {
+      background: var(--card);
+      color: var(--ink);
+      border-color: var(--muted)
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 1.5rem 0;
+      color: var(--muted)
+    }
+
+    .skill-category-badge {
+      background: rgba(11, 107, 99, .08);
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 700;
+      padding: .2rem .6rem;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: .5rem
+    }
+
+    [data-bs-theme="dark"] .skill-category-badge {
+      background: rgba(79, 209, 197, .15);
+      color: var(--accent)
+    }
+
+    .strength-card {
+      border-left: 4px solid var(--accent);
+      background: var(--card);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: .75rem
+    }
+
+    /* Media queries (mobile-first) */
+    @media (min-width:768px) {
+      .hero {
+        grid-template-columns: 1.6fr 1fr;
+        padding: 5rem 0
+      }
+
+      section {
+        padding: 5rem 0
+      }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      html {
+        scroll-behavior: auto
+      }
+
+      .project {
+        transition: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header>
+    <nav class="navbar navbar-expand-lg sticky-top" aria-label="Main navigation">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="#home">VELAGAPUDI YASHASVI</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+            <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+            <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            <li class="nav-item"><button id="themeToggle" class="btn btn-outline-c btn-sm" type="button"
+                aria-pressed="false">Dark mode</button></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- Hero Section -->
+    <section id="home" aria-labelledby="home-title">
+      <div class="container hero">
+        <div>
+          <p class="fw-bold mb-2" style="color:var(--accent)">AI, Machine Learning & NLP Undergraduate</p>
+          <h1 id="home-title">Building Intelligent Systems & Vision Pipelines.</h1>
+          <p class="fs-5 text-muted-c mt-3">Computer Science undergraduate specializing in AI, Machine Learning, and
+            NLP, with hands-on experience building LLM-based applications, deployed ML systems, and computer vision
+            pipelines. Seeking AI/ML internship opportunities to apply these skills to real-world problems.</p>
+          <div class="d-flex flex-wrap gap-2 mt-4">
+            <a class="btn btn-accent btn-lg" href="#projects">View Projects</a>
+            <a class="btn btn-outline-c btn-lg" href="#contact">Contact Me</a>
+            <a class="btn btn-outline-c btn-lg" href="resume.pdf" download="Velagapudi_Yashasvi_Resume.pdf"
+              title="Download Resume">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="me-1 align-text-bottom">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>Download Resume
+            </a>
+          </div>
+        </div>
+        <div class="text-center">
+          <div class="avatar mx-auto" role="img" aria-label="Portrait placeholder with initials VY">VY</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="container">
+        <h2 id="about-title">About Me</h2>
+        <div class="row g-4">
+          <div class="col-md-7">
+            <p>I am a Computer Science Engineering student with an unwavering passion for Artificial Intelligence,
+              Machine Learning, and Computer Vision. I focus on developing end-to-end data and model pipelines—from data
+              ingestion and preprocessing to model training, evaluation, and production deployment.</p>
+            <p>Whether creating interactive LLM web applications, automated object detection workflows, or predictive
+              machine learning models, I prioritize rigorous debugging discipline and clean, efficient implementations.
+            </p>
+
+            <h3 class="h5 mt-4 mb-3">Key Strengths</h3>
+            <div class="strength-card">
+              <strong>Pipeline Thinking:</strong> Seamless transition across data &rarr; model &rarr; evaluation &rarr;
+              deployment.
+            </div>
+            <div class="strength-card">
+              <strong>Strong Model Evaluation:</strong> Disciplined debugging, metric benchmarking, and error analysis.
+            </div>
+            <div class="strength-card">
+              <strong>Fast Implementation:</strong> Rapid prototyping and experimentation capability for AI/ML
+              solutions.
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="card p-4 h-100">
+              <h3 class="h5 mb-3">Certifications & Achievements</h3>
+              <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                <li class="d-flex align-items-start">
+                  <span class="me-2" style="color:var(--accent);font-size:1.2rem;">&#10003;</span>
+                  <div>
+                    <strong>Machine Learning</strong>
+                    <div class="text-muted-c small">NPTEL Certification</div>
+                  </div>
+                </li>
+                <li class="d-flex align-items-start">
+                  <span class="me-2" style="color:var(--accent);font-size:1.2rem;">&#10003;</span>
+                  <div>
+                    <strong>AI/ML Foundation Program</strong>
+                    <div class="text-muted-c small">IIIT Hyderabad</div>
+                  </div>
+                </li>
+                <li class="d-flex align-items-start">
+                  <span class="me-2" style="color:var(--accent);font-size:1.2rem;">&#10003;</span>
+                  <div>
+                    <strong>WE Engage FLINT Program</strong>
+                    <div class="text-muted-c small">Selected by WE Hub</div>
+                  </div>
+                </li>
+                <li class="d-flex align-items-start">
+                  <span class="me-2" style="color:var(--accent);font-size:1.2rem;">&#10003;</span>
+                  <div>
+                    <strong>AI & ML Student Training Program</strong>
+                    <div class="text-muted-c small">IIIT Hyderabad</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" aria-labelledby="edu-title">
+      <div class="container">
+        <h2 id="edu-title">Education</h2>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle">
+            <caption class="text-muted-c">Academic Qualifications</caption>
+            <thead>
+              <tr>
+                <th scope="col">Degree / Qualification</th>
+                <th scope="col">Institution</th>
+                <th scope="col">Grade / Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">B.E. Computer Science and Engineering</th>
+                <td>Stanley College of Engineering and Technology</td>
+                <td><span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">CGPA:
+                    9.03</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Intermediate</th>
+                <td>Narayana Junior College</td>
+                <td><span class="badge bg-info-subtle text-info border border-info-subtle px-2 py-1">95.7%</span></td>
+              </tr>
+              <tr>
+                <th scope="row">SSC (Secondary School Certificate)</th>
+                <td>Dr. K.K.R's Gowtham School</td>
+                <td><span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1">GPA:
+                    10.0</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" aria-labelledby="skills-title">
+      <div class="container">
+        <h2 id="skills-title">Technical Skills</h2>
+
+        <!-- Categorized Skill Badges -->
+        <div class="row g-4 mb-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="card p-3 h-100">
+              <span class="skill-category-badge">Programming</span>
+              <div class="d-flex flex-wrap gap-1 mt-1">
+                <span class="tag">Python</span>
+                <span class="tag">Java</span>
+                <span class="tag">C</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card p-3 h-100">
+              <span class="skill-category-badge">AI & Machine Learning</span>
+              <div class="d-flex flex-wrap gap-1 mt-1">
+                <span class="tag">Neural Networks</span>
+                <span class="tag">CNN Basics</span>
+                <span class="tag">Machine Learning Algorithms</span>
+                <span class="tag">Model Training & Evaluation</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card p-3 h-100">
+              <span class="skill-category-badge">Tools & Libraries</span>
+              <div class="d-flex flex-wrap gap-1 mt-1">
+                <span class="tag">NumPy</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">Scikit-learn</span>
+                <span class="tag">OpenCV</span>
+                <span class="tag">Pillow (PIL)</span>
+                <span class="tag">Streamlit</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card p-3 h-100">
+              <span class="skill-category-badge">Computer Vision</span>
+              <div class="d-flex flex-wrap gap-1 mt-1">
+                <span class="tag">YOLOv8</span>
+                <span class="tag">Image Processing</span>
+                <span class="tag">LSB Steganography</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card p-3 h-100">
+              <span class="skill-category-badge">Hardware & IoT</span>
+              <div class="d-flex flex-wrap gap-1 mt-1">
+                <span class="tag">Arduino</span>
+                <span class="tag">Sensors</span>
+                <span class="tag">Embedded Systems</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="card p-3 h-100">
+              <span class="skill-category-badge">Version Control</span>
+              <div class="d-flex flex-wrap gap-1 mt-1">
+                <span class="tag">Git</span>
+                <span class="tag">GitHub</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="h5 mt-4 mb-3">Core Proficiency</h3>
+        <div id="skillList" class="row g-3"></div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <h2 id="projects-title">Projects</h2>
+        <div class="filters" role="group" aria-label="Filter projects by category" id="filters"></div>
+        <p id="projectCount" class="text-muted-c" aria-live="polite"></p>
+        <div id="projectGrid" class="row g-4"></div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <h2 id="contact-title">Contact</h2>
+        <div class="row g-4">
+          <div class="col-lg-5">
+            <p>Looking for an enthusiastic AI/ML intern or engineering collaborator? Let's connect!</p>
+            <ul class="list-unstyled d-flex flex-column gap-2 mt-3">
+              <li>
+                <strong>Email:</strong><br>
+                <a href="mailto:yashasvivelagapudi@gmail.com">yashasvivelagapudi@gmail.com</a>
+              </li>
+              <li>
+                <strong>Phone:</strong><br>
+                <a href="tel:+918885587559">+91 8885587559</a>
+              </li>
+              <li>
+                <strong>GitHub:</strong><br>
+                <a href="https://github.com/YashasviVelagapudi" target="_blank"
+                  rel="noopener noreferrer">github.com/YashasviVelagapudi</a>
+              </li>
+              <li>
+                <strong>LinkedIn:</strong><br>
+                <a href="https://linkedin.com/in/yashasvi-velagapudi" target="_blank"
+                  rel="noopener noreferrer">linkedin.com/in/yashasvi-velagapudi</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-7">
+            <div id="formAlert" role="status" aria-live="polite"></div>
+            <form id="contactForm" novalidate>
+              <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" name="name" autocomplete="name"
+                  aria-describedby="name-err" required>
+                <div class="invalid-feedback" id="name-err"></div>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" autocomplete="email"
+                  aria-describedby="email-err" required>
+                <div class="invalid-feedback" id="email-err"></div>
+              </div>
+              <div class="mb-3">
+                <label for="subject" class="form-label">Reason for Contact</label>
+                <select class="form-select" id="subject" name="subject" aria-describedby="subject-err" required>
+                  <option value="">Choose one</option>
+                  <option>AI/ML Internship Opportunity</option>
+                  <option>Project Collaboration</option>
+                  <option>General Inquiry</option>
+                </select>
+                <div class="invalid-feedback" id="subject-err"></div>
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" name="message" rows="5" maxlength="500"
+                  aria-describedby="message-help message-err" required></textarea>
+                <div id="message-help" class="form-text"><span id="charCount">0</span>/500 characters (minimum 20)</div>
+                <div class="invalid-feedback" id="message-err"></div>
+              </div>
+              <button type="submit" class="btn btn-accent btn-lg">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div
+      class="container text-center text-md-start d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <small>&copy; <span id="year"></span> Velagapudi Yashasvi. All rights reserved.</small>
+      <small class="text-muted-c">Built with HTML5, CSS3, Bootstrap 5 & JavaScript</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    'use strict';
+    /* ---------- Data (skills & projects from resume) ---------- */
+    const skills = [
+      { name: 'Python & AI Development', level: 92 },
+      { name: 'Machine Learning Algorithms & Evaluation', level: 90 },
+      { name: 'Computer Vision & YOLOv8 Pipeline', level: 88 },
+      { name: 'NLP & LLM Applications', level: 85 },
+      { name: 'NumPy, Pandas & Scikit-learn', level: 90 },
+      { name: 'Streamlit & Interactive Dashboards', level: 88 },
+      { name: 'Java & C Programming', level: 80 },
+      { name: 'Git & Version Control', level: 85 }
+    ];
+
+    const projects = [
+      {
+        title: 'AI Study Planner – LLM Web App',
+        category: 'LLM & AI',
+        desc: 'Built an LLM-based structured study plan generator with progress tracking and plan-lock control. Developed an interactive web interface for real-time schedule customization.',
+        tech: ['Python', 'Streamlit', 'LLMs', 'Prompt Engineering'],
+        highlights: ['Progress tracking & plan-lock control', 'Real-time interactive customization']
+      },
+      {
+        title: 'Sentiment Analysis – Naive Bayes vs SVM',
+        category: 'NLP & ML',
+        desc: 'Implemented an end-to-end NLP pipeline comprising text preprocessing, vectorization, and comparative model training between Naive Bayes and SVM, integrated with a real-time prediction dashboard.',
+        tech: ['Python', 'Scikit-learn', 'NLP', 'Streamlit'],
+        highlights: ['End-to-end text preprocessing & vectorization', 'Comparative performance benchmarking']
+      },
+      {
+        title: 'Object Detection – YOLOv8 Pipeline',
+        category: 'Computer Vision',
+        desc: 'Developed a robust batch object detection pipeline featuring confidence filtering and class extraction. Automated a scalable multi-image processing workflow for computer vision tasks.',
+        tech: ['Python', 'OpenCV', 'YOLOv8', 'Batch Processing'],
+        highlights: ['Confidence filtering & class extraction', 'Automated scalable multi-image workflow']
+      },
+      {
+        title: 'Customer Churn Prediction – Random Forest',
+        category: 'Data Science',
+        desc: 'Trained a Random Forest classifier to predict customer churn patterns and conducted feature importance analysis. Evaluated model efficacy using standard classification metrics.',
+        tech: ['R', 'Random Forest', 'Data Analytics', 'Model Evaluation'],
+        highlights: ['Feature importance ranking', 'Evaluation with precision, recall, and ROC-AUC']
+      }
+    ];
+
+    /* ---------- Feature 1: Skills rendering ---------- */
+    const skillList = document.getElementById('skillList');
+    skills.forEach(({ name, level }) => {
+      const col = document.createElement('div');
+      col.className = 'col-md-6';
+      col.innerHTML = `
+    <div class="d-flex justify-content-between mb-1">
+      <span class="fw-medium">${name}</span>
+      <span class="text-muted-c">${level}%</span>
+    </div>
+    <div class="progress" role="progressbar" aria-label="${name} proficiency" aria-valuenow="${level}" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-bar" style="width:${level}%"></div>
+    </div>`;
+      skillList.appendChild(col);
+    });
+
+    /* ---------- Feature 2: Project filtering ---------- */
+    const grid = document.getElementById('projectGrid');
+    const filterBox = document.getElementById('filters');
+    const countEl = document.getElementById('projectCount');
+    const categories = ['All', ...new Set(projects.map(p => p.category))];
+
+    const renderProjects = (cat = 'All') => {
+      const list = cat === 'All' ? projects : projects.filter(p => p.category === cat);
+      grid.innerHTML = list.map(p => `
+    <div class="col-md-6">
+      <article class="card project h-100">
+        <div class="card-body d-flex flex-column">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <h3 class="h5 card-title mb-0">${p.title}</h3>
+            <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle">${p.category}</span>
+          </div>
+          <p class="card-text text-muted-c mt-2 flex-grow-1">${p.desc}</p>
+          <ul class="small text-muted-c ps-3 mb-3">
+            ${p.highlights.map(h => `<li>${h}</li>`).join('')}
+          </ul>
+          <div class="mt-auto">${p.tech.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        </div>
+        <div class="card-footer bg-transparent border-0 pb-3 pt-0">
+          <a href="#contact" class="btn btn-outline-c btn-sm">Inquire about project</a>
+        </div>
+      </article>
+    </div>`).join('');
+      countEl.textContent = `Showing ${list.length} ${cat === 'All' ? '' : cat + ' '}project${list.length === 1 ? '' : 's'}`;
+    };
+
+    categories.forEach((cat, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'btn btn-outline-c btn-sm';
+      b.textContent = cat;
+      b.setAttribute('aria-pressed', i === 0);
+      b.addEventListener('click', () => {
+        filterBox.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+        renderProjects(cat);
+      });
+      filterBox.appendChild(b);
+    });
+    renderProjects();
+
+    /* ---------- Feature 3: Theme switcher (remembers choice) ---------- */
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const applyTheme = mode => {
+      root.setAttribute('data-bs-theme', mode);
+      toggle.textContent = mode === 'dark' ? 'Light mode' : 'Dark mode';
+      toggle.setAttribute('aria-pressed', mode === 'dark');
+    };
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) { }
+    applyTheme(saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    toggle.addEventListener('click', () => {
+      const next = root.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      try { localStorage.setItem('theme', next); } catch (e) { }
+    });
+
+    /* ---------- Feature 4: Active nav link on scroll & mobile auto-close ---------- */
+    const links = document.querySelectorAll('.navbar .nav-link');
+    const navCollapse = document.getElementById('nav');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + en.target.id));
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('main section').forEach(s => observer.observe(s));
+
+    // Auto-close responsive navbar on link click (mobile)
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        if (navCollapse && navCollapse.classList.contains('show')) {
+          const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+          if (bsCollapse) bsCollapse.hide();
+        }
+      });
+    });
+
+    /* ---------- Form validation ---------- */
+    const form = document.getElementById('contactForm');
+    const alertBox = document.getElementById('formAlert');
+    const msg = document.getElementById('message');
+    const rules = {
+      name: v => v.trim().length < 2 ? 'Enter your full name (at least 2 characters).' : /\d/.test(v) ? 'Names cannot contain numbers.' : '',
+      email: v => !v.trim() ? 'Enter your email address.' : !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? 'Enter a valid email, for example name@example.com.' : '',
+      subject: v => v ? '' : 'Choose a reason for contact.',
+      message: v => v.trim().length < 20 ? `Write at least 20 characters (you have ${v.trim().length}).` : v.length > 500 ? 'Keep the message under 500 characters.' : ''
+    };
+    const check = field => {
+      const err = rules[field.name](field.value);
+      field.classList.toggle('is-invalid', !!err);
+      field.classList.toggle('is-valid', !err);
+      field.setAttribute('aria-invalid', !!err);
+      document.getElementById(field.id + '-err').textContent = err;
+      return !err;
+    };
+    const fields = [...form.querySelectorAll('input, select, textarea')];
+    fields.forEach(f => {
+      f.addEventListener('blur', () => check(f));
+      f.addEventListener('input', () => { if (f.classList.contains('is-invalid')) check(f); });
+    });
+    msg.addEventListener('input', () => { document.getElementById('charCount').textContent = msg.value.length; });
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const results = fields.map(check);
+      if (results.every(Boolean)) {
+        const first = form.elements['name'].value.trim().split(' ')[0];
+        alertBox.innerHTML = `<div class="alert alert-success" role="alert">Thanks, ${first}. Your message is ready to send. (Demo: no data leaves this page.)</div>`;
+        form.reset();
+        fields.forEach(f => f.classList.remove('is-valid', 'is-invalid'));
+        document.getElementById('charCount').textContent = 0;
+      } else {
+        alertBox.innerHTML = '<div class="alert alert-danger" role="alert">Fix the highlighted fields and send again.</div>';
+        fields[results.indexOf(false)].focus();
+      }
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>
